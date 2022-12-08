@@ -1,7 +1,7 @@
 import React from 'react';
 import './Header.css';
 import logo from './Logo.png';
-const Header: React.FC = () => {
+const Header = () => {
     return (
         <div className="header">
             <img src={logo} alt="logo" />
@@ -11,7 +11,7 @@ const Header: React.FC = () => {
             </div>
             <ul className="navbar-list">
                 <li className="navbar-item fa-solid fa-cart-shopping">
-                    <p>Giỏ hảng</p>
+                    <p>Giỏ hàng</p>
                 </li>
                 <li className="navbar-item fa-solid fa-book">
                     <p>Yêu thích</p>

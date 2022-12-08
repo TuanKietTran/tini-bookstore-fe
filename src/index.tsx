@@ -5,12 +5,13 @@ import App from './App';
 import './index.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Home from './components/Home'
+import Home from './components/Home';
+import Book from './components/Book';
 
 ReactDOM.render(
     <React.StrictMode>
       <Header />
-      <Home/>
+      <Book/>
       <Footer />
     </React.StrictMode>,
   document.getElementById('root') as HTMLElement
