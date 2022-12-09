@@ -7,6 +7,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './components/Home';
 import Book from './components/Book';
+import Cart from './components/Cart';
 
 ReactDOM.render(
     <React.StrictMode>
