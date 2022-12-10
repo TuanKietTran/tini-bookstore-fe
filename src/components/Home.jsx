@@ -6,7 +6,7 @@ const Home = () => {
                 <div class="max-w-screen-xl px-5 py-24 mx-auto">
                     <div class="flex flex-wrap w-full mb-20">
                         <div class=" w-full mb-6 lg:mb-0">
-                            <h1 class="px-2 rounded-lg sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900 bg-green-300 w-full">Pitchfork Kickstarter Taxidermy</h1>
+                            <h1 class="p-2 rounded-2xl sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900 bg-green-300 w-full">Pitchfork Kickstarter Taxidermy</h1>
                             <div class="h-1 w-20 bg-indigo-500 rounded"></div>
                         </div>
                     </div>
