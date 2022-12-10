@@ -1,11 +1,12 @@
 import React from 'react';
 import './Header.css';
 import logo from './Logo.png';
-const Header = () => {
-    const [quantity, setQuantity] = React.useState(0);
+const Header = ({quantity}) => {
     return (
         <div className="header">
-            <img src={logo} alt="logo" />
+            <a href="/">
+                <img src={logo} alt="logo" />
+            </a>
             <div className="search">
                 <input type="text" placeholder='Tìm kiếm' />
                 <button className='bt-search fa-solid fa-magnifying-glass'></button>
