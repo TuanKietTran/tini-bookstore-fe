@@ -6,10 +6,10 @@ import Home from './components/Home';
 import Book from './components/Book';
 import Cart from './components/Cart';
 
-const App : React.FC = () => {
+const App = () => {
   const [totalItem, setTotalItem] = React.useState(0);
   
-  const handleAddToCart  = (value: number) => {
+  const handleAddToCart  = (value) => {
     setTotalItem(value);
   };
 
