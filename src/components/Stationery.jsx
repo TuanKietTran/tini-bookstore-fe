@@ -21,8 +21,6 @@ const Book = ({totalItem, onAddToCart}) => {
     const [image, setImage] = useState('');
     const [price, setPrice] = useState('400.000');
     const [publisher, setPublisher] = useState('bookstore');
-    const [author, setAuthor] = useState('A');
-    const [year, setYear] = useState('2022');
     const [total, setTotal] = useState(0);
     const [discount, setDiscount] = useState(0);
     const id = window.location.pathname.split("/");
@@ -46,17 +44,14 @@ const Book = ({totalItem, onAddToCart}) => {
     useEffect (() => {
         const fetchBookID = async () => {
             try{
-                var book = await callApi.getBookID(id[2]);
+                var book = await callApi.getStationeryID(id[2]);
                 setName(book.p_name);
                 setPrice(book.price);
                 setTotal(book.amount);
                 setImage(book.cover);
                 setType(book.product_type_code);
-                setYear(book.publishing_year);
-                setPublisher(book.publisher);
-                setAuthor(book.authors);
+                setPublisher(book.distributor);
                 setDiscount(book.discount);
-
             } catch (error) {
                 console.log("Failed to fetch: ", error);
             }
@@ -98,7 +93,7 @@ const Book = ({totalItem, onAddToCart}) => {
                             </h2>
                             <div className='flex'>
                                 <h3 className="text-gray-500 line-through text-xl font-semibold mr-2">
-                                    {price}đ    
+                                    {price}đ      
                                 </h3>
 
                                 <h3 className="text-red-500 text-2xl font-semibold">
@@ -108,12 +103,6 @@ const Book = ({totalItem, onAddToCart}) => {
                             </div>
                             <p>
                                 <span className="text-black font-medium">Công ty phát hành: </span> {publisher}
-                            </p>
-                            <p>
-                                <span className="text-black font-medium">Tác giả: </span> {author}
-                            </p>
-                            <p>
-                                <span className="text-black font-medium">Năm xuất bản: </span> {year}
                             </p>
                             <p>
                                 <span className="text-black font-medium">Số lượng sản phẩm trong kho: </span> {total}

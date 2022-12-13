@@ -6,7 +6,7 @@ import queryString from 'query-string';
 // Please have a look at here `https://github.com/axios/axios#request-config` for the full list of configs
 
 const axiosClient = axios.create({
-    baseURL: "https://jfresgister-booth-api.herokuapp.com",
+    baseURL: process.env.REACT_APP_API_URL,
     headers: {
         'content-type': 'application/json',
     },
@@ -17,10 +17,10 @@ axiosClient.interceptors.request.use(async (config) => {
     return config;
 })
 axiosClient.interceptors.response.use((response) => {
-    if (response && response.data) {
-        return response.data;
-    }
-    return response;
+    // if (response && response.data) {
+        // return response.data;
+    // }
+    return response.data;
 }, (error) => {
     // Handle errors
     throw error;
