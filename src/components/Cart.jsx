@@ -57,22 +57,21 @@ const Cart = ({totalItem, onAddToCart}) => {
                 "amount": products[i].quantity,
             })
         }
-        console.log(include);
         const bill = {
-            "b_id": 1,
             "b_time": "",
-            "City": city,
-            "District": district,
-            "StreetNum": street,
-            "B_Status": "Waiting",
-            "Phone": phone,
-            "Email": email,
-            "Customer_name": name,
-            "Payment_method": pay,
+            "city": city,
+            "district": district,
+            "streetNum": street,
+            "b_status": "Waiting",
+            "phone": phone,
+            "email": email,
+            "customer_name": name,
+            "payment_method": pay,
             "include": include,
         }
-        console.log(JSON.stringify(bill));
         await callApi.postBill(bill);
+        alert("Gửi thành công");
+        localStorage.clear();
     };
 
     return (
@@ -170,7 +169,9 @@ const Cart = ({totalItem, onAddToCart}) => {
                                 <span>Tổng giá</span>
                                 <span>{sum}</span>
                             </div>
-                            <button onClick={() => {checkout()}} className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">Đặt hàng</button>
+                            <a href="/">
+                                <button href='/' onClick={() => {checkout()}} className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">Đặt hàng</button>
+                            </a>
                         </div>
                     </div>
 

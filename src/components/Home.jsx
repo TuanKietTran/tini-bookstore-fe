@@ -56,9 +56,9 @@ const Home = () => {
                             <div className="h-1 w-20 bg-indigo-500 rounded"></div>
                         </div>
                     </div>
-                    <div className="flex flex-wrap m-4">
-                        <Records data={currentRecordsB} />
-                    </div>
+                    
+                    <Records data={currentRecordsB} />
+                    
                     <div className="flex justify-center my-6">
                         <Pagination
                             nPages={nPagesB}
@@ -75,11 +75,11 @@ const Home = () => {
                             <div className="h-1 w-20 bg-indigo-500 rounded"></div>
                         </div>
                     </div>
-                    <div className="flex flex-wrap m-4">
-                        <Records data={currentRecordsS} />
-                    </div>
+                
+                    <Records data={currentRecordsS} />
+                    
                     <div className="flex justify-center my-6">
-                    <Pagination
+                        <Pagination
                             nPages={nPagesS}
                             currentPage={currentPageS}
                             setCurrentPage={setCurrentPageS}

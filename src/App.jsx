@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import Home from './components/Home';
 import Book from './components/Book';
 import Cart from './components/Cart';
+import Stationery from './components/Stationery'
 import {BrowserRouter, Router, Routes, Route } from "react-router-dom";
 
 const App = () => {
@@ -20,7 +21,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home/>}/>
           <Route path="/book/:id" element={<Book totalItem={totalItem} onAddToCart={handleAddToCart}/>}/>
-          <Route path="/stationery/:id" element={<Book totalItem={totalItem} onAddToCart={handleAddToCart}/>}/>
+          <Route path="/stationery/:id" element={<Stationery totalItem={totalItem} onAddToCart={handleAddToCart}/>}/>
           <Route path="/cart" element={<Cart totalItem={totalItem} onAddToCart={handleAddToCart}/>}/>
         </Routes>
         <Footer />

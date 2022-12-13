@@ -10,7 +10,7 @@ const callApi = {
         return axiosClient.get(url);
     },
     getStationery: () => {
-        const url = 'stationery';
+        const url = '/stationery';
         return axiosClient.get(url);
     },
     getBookID: (id) => {
@@ -18,12 +18,11 @@ const callApi = {
         return axiosClient.get(url);
     },
     getStationeryID: (id) => {
-        const url = `/book/${id}`;
+        const url = `/stationery/${id}`;
         return axiosClient.get(url);
     },
     postBill: (params) => {
         const url = '/bill';
-        console.log(params)
         axiosClient.post(url, params);
     },
 }

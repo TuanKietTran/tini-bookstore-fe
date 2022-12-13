@@ -43,11 +43,9 @@ const Book = ({totalItem, onAddToCart}) => {
 
 
     useEffect (() => {
-        console.log(id);
         const fetchBookID = async () => {
             try{
-                var book = await callApi.getID(id[2]);
-                console.log(book);
+                var book = await callApi.getBookID(id[2]);
                 setName(book.p_name);
                 setPrice(book.price);
                 setTotal(book.amount);
