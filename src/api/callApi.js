@@ -25,5 +25,13 @@ const callApi = {
         const url = '/bill';
         axiosClient.post(url, params);
     },
+    getBill: () => {
+        const url = '/bill';
+        return axiosClient.get(url);
+    },
+    updateState: (params) => {
+        const url = '/bill';
+        return axiosClient.put(url, params);
+    },
 }
 export default callApi;
