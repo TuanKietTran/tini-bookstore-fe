@@ -6,7 +6,7 @@ import Home from './components/Home';
 import Book from './components/Book';
 import Cart from './components/Cart';
 import Stationery from './components/Stationery'
-import {BrowserRouter, Router, Routes, Route } from "react-router-dom";
+import {BrowserRouter, Routes, Route } from "react-router-dom";
 import Management from "./views/Management";
 
 

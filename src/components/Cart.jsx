@@ -1,14 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import callApi from '../api/callApi';
-import './Cart.css';
+import './Book.css';
 
-const Cart = ({totalItem, onAddToCart}) => {
+const Cart = ({ totalItem, onAddToCart }) => {
     const [products, setProducts] = useState(JSON.parse(localStorage.getItem('products')) || []);
-    // useEffect(() => {
-    //     var products = JSON.parse(localStorage.getItem('products')) || [];
-    //     setProducts(products);
-    // }, []);
     const [name, setName] = React.useState('');
     const [email, setEmail] = React.useState('');
     const [phone, setPhone] = React.useState('');
@@ -17,17 +13,17 @@ const Cart = ({totalItem, onAddToCart}) => {
     const [city, setCity] = React.useState('');
     const [district, setDistrict] = React.useState('');
 
-// - Waiting: Đang chờ được phê duyệt.
-// - Shipping: Đang vận chuyển.
-// - Done: Đơn hàng hoàn thành.
-// - Cancelled: Đơn hàng đã bị hủy bỏ.
+    // - Waiting: Đang chờ được phê duyệt.
+    // - Shipping: Đang vận chuyển.
+    // - Done: Đơn hàng hoàn thành.
+    // - Cancelled: Đơn hàng đã bị hủy bỏ.
 
     const decrement = (index) => {
         if (products[index].quantity > 1) {
             products[index].quantity -= 1;
             setProducts(products => [...products]);
-            localStorage.setItem('products', JSON.stringify(products)); 
-        }else{
+            localStorage.setItem('products', JSON.stringify(products));
+        } else {
             remove(index);
         }
     }
@@ -35,19 +31,38 @@ const Cart = ({totalItem, onAddToCart}) => {
     const increment = (index) => {
         products[index].quantity += 1;
         setProducts(products => [...products]);
-        localStorage.setItem('products', JSON.stringify(products)); 
+        localStorage.setItem('products', JSON.stringify(products));
     }
 
     const sum = products.reduce((accumulator, value) => {
         return accumulator + value.quantity * value.price;
     }, 0)
-    
+
     const remove = (index) => {
         products.splice(index, 1);
         setProducts(products => [...products]);
-        onAddToCart(totalItem-1);
-        localStorage.setItem('products', JSON.stringify(products)); 
+        onAddToCart(totalItem - 1);
+        localStorage.setItem('products', JSON.stringify(products));
     };
+
+    function padTo2Digits(num) {
+        return num.toString().padStart(2, '0');
+    }
+
+    function formatDate(date) {
+        return (
+            [
+                padTo2Digits(date.getDate()),
+                padTo2Digits(date.getMonth() + 1),
+                date.getFullYear(),
+            ].join('/') +
+            ' ' +
+            [
+                padTo2Digits(date.getHours()),
+                padTo2Digits(date.getMinutes()),
+            ].join(':')
+        );
+    }
 
     const checkout = async () => {
         const include = [];
@@ -58,7 +73,7 @@ const Cart = ({totalItem, onAddToCart}) => {
             })
         }
         const bill = {
-            "b_time": "",
+            "b_time": formatDate(new Date()),
             "city": city,
             "district": district,
             "streetNum": street,
@@ -170,7 +185,7 @@ const Cart = ({totalItem, onAddToCart}) => {
                                 <span>{sum}</span>
                             </div>
                             <a href="/">
-                                <button href='/' onClick={() => {checkout()}} className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">Đặt hàng</button>
+                                <button href='/' onClick={() => { checkout() }} className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">Đặt hàng</button>
                             </a>
                         </div>
                     </div>

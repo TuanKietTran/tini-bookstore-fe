@@ -11,7 +11,11 @@ const Records = ({ data }) => {
                         <div className="bg-gray-100 p-6 rounded-lg h-96 flex flex-col justify-between">
                             <img className="h-40 rounded object-cover object-center mb-6" src={item.cover} alt="content" />
                             <h2 className="text-lg text-gray-900 font-medium title-font mb-4 h-32">{item.p_name}</h2>
-                            <p className="leading-relaxed text-base text-red-600 mx-2 items-end">{item.price}đ</p>
+                            <div className='flex'>
+                                <p className="leading-relaxed text-base text-gray-500 mx-2 items-end line-through">{item.price}đ</p>
+                                <p className="leading-relaxed text-xl text-red-500 mx-2 items-end">{item.price*(1-item.discount)}đ</p>
+
+                            </div>
                         </div>
                     </Link>
                 </div>

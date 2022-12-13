@@ -24,6 +24,7 @@ const Book = ({totalItem, onAddToCart}) => {
     const [author, setAuthor] = useState('A');
     const [year, setYear] = useState('2022');
     const [total, setTotal] = useState(0);
+    const [discount, setDiscount] = useState(0);
     const id = window.location.pathname.split("/");
 
     const Addproduct = () => {
@@ -33,7 +34,7 @@ const Book = ({totalItem, onAddToCart}) => {
             {
                 "id": id[2],
                 "name": name,
-                "price": price,
+                "price": price*(1-discount),
                 "quantity": quantity,
                 "image": image,
             }
@@ -54,6 +55,7 @@ const Book = ({totalItem, onAddToCart}) => {
                 setYear(book.publishing_year);
                 setPublisher(book.publisher);
                 setAuthor(book.authors);
+                setDiscount(book.discount);
 
             } catch (error) {
                 console.log("Failed to fetch: ", error);
@@ -94,10 +96,16 @@ const Book = ({totalItem, onAddToCart}) => {
                             <h2 className="text-2xl text-black font-bold">
                                 {name}<div className="badge badge-secondary text-xs">{type}</div>
                             </h2>
+                            <div className='flex'>
+                                <h3 className="text-gray-500 line-through text-xl font-semibold mr-2">
+                                    {price}đ    
+                                </h3>
 
-                            <h3 className="text-black text-2xl font-semibold">
-                                {price}đ
-                            </h3>
+                                <h3 className="text-red-500 text-2xl font-semibold">
+                                    {price*(1-discount)}đ 
+                                </h3>
+
+                            </div>
                             <p>
                                 <span className="text-black font-medium">Công ty phát hành: </span> {publisher}
                             </p>
