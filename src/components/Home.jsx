@@ -1,51 +1,93 @@
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import callApi from "../api/callApi";
+import Records from "./Pagination/Record";
+import Pagination from "./Pagination/Pagination";
 
 const Home = () => {
+    const [loading, setLoading] = useState(true);
+    
+    const [dataBook, setDatabook] = useState([])
+    const [dataStationery, setDataStationery] = useState([])
+
+
+    const [currentPageB, setCurrentPageB] = useState(1);
+    const [currentPageS, setCurrentPageS] = useState(1);
+    
+
+    const [recordsPerPage] = useState(5);
+
+
+
+    useEffect(() => {
+        const fetchBook = async () => {
+            try {
+                var getdataBook = await callApi.getBook();
+                var getdataStationery = await callApi.getStationery();
+                setDatabook(getdataBook);
+                setDataStationery(getdataStationery);
+                setLoading(false);
+            } catch (error) {
+                console.log("Failed to fetch: ", error);
+            }
+        }
+
+    fetchBook();
+    }, [loading])
+
+    const indexOfLastRecordB = currentPageB * recordsPerPage;
+    const indexOfFirstRecordB = indexOfLastRecordB - recordsPerPage;
+    const currentRecordsB = dataBook.slice(indexOfFirstRecordB, indexOfLastRecordB);
+    const nPagesB = Math.ceil(dataBook.length / recordsPerPage)
+    
+    const indexOfLastRecordS = currentPageS * recordsPerPage;
+    const indexOfFirstRecordS = indexOfLastRecordS - recordsPerPage;
+    const currentRecordsS = dataStationery.slice(indexOfFirstRecordS, indexOfLastRecordS);
+    const nPagesS = Math.ceil(dataStationery.length / recordsPerPage)
+
     return (
         <div className="flex flex-col min-h-screen">
-            <section class="text-gray-600 body-font">
-                <div class="max-w-screen-xl px-5 py-24 mx-auto">
-                    <div class="flex flex-wrap w-full mb-20">
-                        <div class=" w-full mb-6 lg:mb-0">
-                            <h1 class="p-2 rounded-2xl sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900 bg-green-300 w-full">Pitchfork Kickstarter Taxidermy</h1>
-                            <div class="h-1 w-20 bg-indigo-500 rounded"></div>
+            <section className="text-gray-600 body-font">
+                <div className="max-w-screen-xl px-5 pt-12 mx-auto">
+                    <div className="flex flex-wrap w-full mb-20">
+                        <div className=" w-full mb-6 lg:mb-0">
+                            <h1 className="p-2 rounded-2xl sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900 bg-green-300 w-full">
+                                Sách trong nước</h1>
+                            <div className="h-1 w-20 bg-indigo-500 rounded"></div>
                         </div>
                     </div>
-                    <div class="flex flex-wrap -m-4">
-                        <div class="xl:w-1/4 md:w-1/2 p-4">
-                            <div class="bg-gray-100 p-6 rounded-lg">
-                                <img class="h-40 rounded w-full object-cover object-center mb-6" src="https://dummyimage.com/720x400" alt="content" />
-                                <h3 class="tracking-widest text-indigo-500 text-xs font-medium title-font">SUBTITLE</h3>
-                                <h2 class="text-lg text-gray-900 font-medium title-font mb-4">Chichen Itza</h2>
-                                <p class="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waistcoat. Distillery hexagon disrupt edison bulbche.</p>
-                            </div>
+                    <div className="flex flex-wrap m-4">
+                        <Records data={currentRecordsB} />
+                    </div>
+                    <div className="flex justify-center my-6">
+                        <Pagination
+                            nPages={nPagesB}
+                            currentPage={currentPageB}
+                            setCurrentPage={setCurrentPageB}
+                        />
+                    </div>
+                </div>
+                <div className="max-w-screen-xl px-5 pt-12 mx-auto">
+                    <div className="flex flex-wrap w-full mb-20">
+                        <div className=" w-full mb-6 lg:mb-0">
+                            <h1 className="p-2 rounded-2xl sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900 bg-green-300 w-full">
+                                Văn phòng phẩm</h1>
+                            <div className="h-1 w-20 bg-indigo-500 rounded"></div>
                         </div>
-                        <div class="xl:w-1/4 md:w-1/2 p-4">
-                            <div class="bg-gray-100 p-6 rounded-lg">
-                                <img class="h-40 rounded w-full object-cover object-center mb-6" src="https://dummyimage.com/721x401" alt="content" />
-                                <h3 class="tracking-widest text-indigo-500 text-xs font-medium title-font">SUBTITLE</h3>
-                                <h2 class="text-lg text-gray-900 font-medium title-font mb-4">Colosseum Roma</h2>
-                                <p class="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waistcoat. Distillery hexagon disrupt edison bulbche.</p>
-                            </div>
-                        </div>
-                        <div class="xl:w-1/4 md:w-1/2 p-4">
-                            <div class="bg-gray-100 p-6 rounded-lg">
-                                <img class="h-40 rounded w-full object-cover object-center mb-6" src="https://dummyimage.com/722x402" alt="content" />
-                                <h3 class="tracking-widest text-indigo-500 text-xs font-medium title-font">SUBTITLE</h3>
-                                <h2 class="text-lg text-gray-900 font-medium title-font mb-4">Great Pyramid of Giza</h2>
-                                <p class="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waistcoat. Distillery hexagon disrupt edison bulbche.</p>
-                            </div>
-                        </div>
-                        <div class="xl:w-1/4 md:w-1/2 p-4">
-                            <div class="bg-gray-100 p-6 rounded-lg">
-                                <img class="h-40 rounded w-full object-cover object-center mb-6" src="https://dummyimage.com/723x403" alt="content" />
-                                <h3 class="tracking-widest text-indigo-500 text-xs font-medium title-font">SUBTITLE</h3>
-                                <h2 class="text-lg text-gray-900 font-medium title-font mb-4">San Francisco</h2>
-                                <p class="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waistcoat. Distillery hexagon disrupt edison bulbche.</p>
-                            </div>
-                        </div>
+                    </div>
+                    <div className="flex flex-wrap m-4">
+                        <Records data={currentRecordsS} />
+                    </div>
+                    <div className="flex justify-center my-6">
+                    <Pagination
+                            nPages={nPagesS}
+                            currentPage={currentPageS}
+                            setCurrentPage={setCurrentPageS}
+                        />
                     </div>
                 </div>
             </section>
+
         </div>
     );
 };

@@ -1,12 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import React from 'react';
 import './Book.css';
+import callApi from '../api/callApi';
 
 
 const Book = ({totalItem, onAddToCart}) => {
     const [quantity, setQuantity] = React.useState(1);
     function decrement() {
-        if (quantity > 1    ) {
+        if (quantity > 1) {
             setQuantity(quantity-1);
         }
     }
@@ -17,10 +18,54 @@ const Book = ({totalItem, onAddToCart}) => {
     
     const [name, setName] = useState('ten sach');
     const [type, setType] = useState('Romance');
+    const [image, setImage] = useState('');
     const [price, setPrice] = useState('400.000');
     const [publisher, setPublisher] = useState('bookstore');
     const [author, setAuthor] = useState('A');
     const [year, setYear] = useState('2022');
+    const [total, setTotal] = useState(0);
+    const id = window.location.pathname.split("/");
+
+    const Addproduct = () => {
+        onAddToCart(totalItem+1);
+        var products = JSON.parse(localStorage.getItem('products')) || [];
+        products.push(
+            {
+                "id": id[2],
+                "name": name,
+                "price": price,
+                "quantity": quantity,
+                "image": image,
+            }
+        );
+        localStorage.setItem('products', JSON.stringify(products));    
+    }
+
+
+    useEffect (() => {
+        console.log(id);
+        const fetchBookID = async () => {
+            try{
+                var book = await callApi.getID(id[2]);
+                console.log(book);
+                setName(book.p_name);
+                setPrice(book.price);
+                setTotal(book.amount);
+                setImage(book.cover);
+                setType(book.product_type_code);
+                setYear(book.publishing_year);
+                setPublisher(book.publisher);
+                setAuthor(book.authors);
+
+            } catch (error) {
+                console.log("Failed to fetch: ", error);
+            }
+
+        };
+
+        fetchBookID();
+    }, []);
+
 
     return (
         <div className="pb-">
@@ -30,7 +75,7 @@ const Book = ({totalItem, onAddToCart}) => {
                         <div className="carousel max-w-[400px] rounded-box">
                             <div id="slide1" className="carousel-item relative">
                                 <img
-                                    src={`https://cdn0.fahasa.com/media/catalog/product/9/7/9786043561272.jpg`}
+                                    src={image}
                                     className="w-[400px] h-[500px] object-cover"
                                     alt=""
                                 />
@@ -53,7 +98,7 @@ const Book = ({totalItem, onAddToCart}) => {
                             </h2>
 
                             <h3 className="text-black text-2xl font-semibold">
-                                {price}
+                                {price}đ
                             </h3>
                             <p>
                                 <span className="text-black font-medium">Công ty phát hành: </span> {publisher}
@@ -65,7 +110,7 @@ const Book = ({totalItem, onAddToCart}) => {
                                 <span className="text-black font-medium">Năm xuất bản: </span> {year}
                             </p>
                             <p>
-                                <span className="text-black font-medium">Số lượng sản phẩm trong kho: </span> 1
+                                <span className="text-black font-medium">Số lượng sản phẩm trong kho: </span> {total}
                             </p>
 
                             <div className="custom-number-input h-10 w-32">
@@ -91,7 +136,7 @@ const Book = ({totalItem, onAddToCart}) => {
 
 
                         </div>
-                        <button type="button" className=" btn btn-primary w-[200px] my-10" onClick={() => onAddToCart(totalItem+1)}>
+                        <button type="button" className=" btn btn-primary w-[200px] my-10" onClick={() => Addproduct()}>
                             Add to Cart
                         </button>
                     </div>
