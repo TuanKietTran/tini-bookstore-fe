@@ -33,5 +33,10 @@ const callApi = {
         const url = '/bill';
         return axiosClient.put(url, params);
     },
+    search: (e) => {
+        const value = e.charAt(0).toUpperCase() + e.slice(1);
+        const url = `/?q=${value}`;
+        return axiosClient.get(url);
+    }
 }
 export default callApi;

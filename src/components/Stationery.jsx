@@ -49,7 +49,7 @@ const Book = ({totalItem, onAddToCart}) => {
                 setPrice(book.price);
                 setTotal(book.amount);
                 setImage(book.cover);
-                setType(book.product_type_code);
+                setType(book.product_type_code.slice(2));
                 setPublisher(book.distributor);
                 setDiscount(book.discount);
             } catch (error) {

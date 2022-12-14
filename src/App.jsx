@@ -8,6 +8,7 @@ import Cart from './components/Cart';
 import Stationery from './components/Stationery'
 import {BrowserRouter, Routes, Route } from "react-router-dom";
 import Management from "./views/Management";
+import Search from "./components/Search";
 
 
 const App = () => {
@@ -15,15 +16,22 @@ const App = () => {
   const handleAddToCart  = (value) => {
     setTotalItem(value);
   };
+  const [search, setSearch] = React.useState('');
+  const [loading, setLoading] = React.useState(false);
+  const handleSearch = (value) => {
+    setSearch(value);
+    setLoading(true);
+  };
 
   return (
     <div className="">
       <BrowserRouter>
-        <Header quantity = {totalItem} />
+        <Header quantity = {totalItem} handleSearch={handleSearch} />
         <Routes>
           <Route path="/" element={<Home/>}/>
           <Route path="/book/:id" element={<Book totalItem={totalItem} onAddToCart={handleAddToCart}/>}/>
           <Route path="/stationery/:id" element={<Stationery totalItem={totalItem} onAddToCart={handleAddToCart}/>}/>
+          <Route path="/search" element={<Search search={search} handleSearch={setLoading} loading={loading} />}/>
           <Route path="/cart" element={<Cart totalItem={totalItem} onAddToCart={handleAddToCart}/>}/>
           <Route path="/management" element={<Management/>}/>
         </Routes>
