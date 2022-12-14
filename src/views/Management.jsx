@@ -35,7 +35,7 @@ export default function Management() {
   const handleSelect = async (id, status) => {
     const bill = bills.filter(el => el["b_id"] === id)[0]
     bill["b_status"] = status
-    setBills([...bills, bill])
+    setBills([...bills])
     console.log(bill["b_status"])
     await callApi.updateState({
       "b_id": id,
