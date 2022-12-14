@@ -14,11 +14,11 @@ const callApi = {
         return axiosClient.get(url);
     },
     getBookID: (id) => {
-        const url = `/book/${id}`;
+        const url = `/book/?id=${id}`;
         return axiosClient.get(url);
     },
     getStationeryID: (id) => {
-        const url = `/stationery/${id}`;
+        const url = `/stationery/?id=${id}`;
         return axiosClient.get(url);
     },
     postBill: (params) => {
